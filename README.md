@@ -13,8 +13,8 @@ This project presents a distributed and eventually consistent [NuGet catalog](ht
         * If leafs are processed out-of-order, package A will be unlisted
     * Example 2
         * Two catalog leafs: unlist package A, unlist package B
-        * End result is that both package A and package B shoudl be unlisted
-        * Order of processing leafs does not matter
+        * End result is that both package A and package B should be unlisted
+        * Order of processing leafs across different package IDs does not matter
 * Explain catalog cursors
 
 ## Poor Solution #1
