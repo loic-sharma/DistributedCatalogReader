@@ -1,6 +1,6 @@
 # NuGet Catalog Reader
 
-This project presents a distributed and eventually consistent [NuGet catalog](https://docs.microsoft.com/en-us/nuget/api/catalog-resource) reader.
+This project presents a distributed and eventually consistent [NuGet catalog](https://docs.microsoft.com/en-us/nuget/api/catalog-resource) reader. This can be used to index all packages on nuget.org.
 
 ## Problem
 
@@ -33,19 +33,19 @@ Problem: Difficult to increase/decrease partitions
 
 Problem: You need one catalog cursor per partition, and one overall cursor
 
-Problem: Poor load balancing. A single package with many updates may cause high load for a single partition, but other partitions may have low load.
+Problem: Poor load balancing. A single package that is frequently updated may cause load for a single partition and its other packages.
 
 Learning: Partitioning is simple to implement.
 
-Solution: What if for each package ID we had a separate partition, queue, and job? Sounds like an infrastructure nightmare, unless we use the actor model!
+Solution: What if for each package ID we had a separate partition, queue, and job? Sounds like an infrastructure nightmare... unless we use the actor model!
 
 ## Solution #3
 
-We can use the actor model as:
+We can use the actor model:
 
+1. Actors are asynchronous. We can queue catalog leafs.
 1. Actors are single-threaded and process messages in order. We can create an actor for each package id.
-2. Actors are asynchronous. We can queue catalog leafs.
-3. Actors are stateful. We can track pending leafs and maintain cursors.
+1. Actors are stateful. We can track pending leafs and maintain cursors.
 
 **TODO**: Insert diagram here...
 
